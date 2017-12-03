@@ -149,7 +149,7 @@ in {
         extraConfig   = musnixRealtimeKernelExtraConfig;
       };
 
-      linux_4_14_rt = callPackage ../pkgs/os-specific/linux/kernel/linux-4.14-rt.nix {
+      linux_4_14_rt = callPackage1 ../pkgs/os-specific/linux/kernel/linux-4.14-rt.nix {
         kernelPatches = [ kernelPatches.bridge_stp_helper
                           kernelPatches.modinst_arg_list_too_long
                           realtimePatches.realtimePatch_4_14
