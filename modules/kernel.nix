@@ -185,6 +185,13 @@ in {
                           realtimePatches.realtimePatch_4_19
                         ];
         extraConfig   = musnixRealtimeKernelExtraConfig + optionalString cfg.kernel.optimize kernelConfigOptimizeDeadline;
+        # extraConfig   = musnixRealtimeKernelExtraConfig + optionalString cfg.kernel.optimize kernelConfigOptimizeDeadline;
+        structuredExtraConfig =
+          with import (pkgs.path + "/lib/kernel.nix") {inherit lib; version = "4.19.31"; }; {
+                                                                      LATENCYTOP = yes;
+                                                                      PREEMPT_VOLUNTARY = lib.mkForce no;
+                                                                      # […]
+                                                                    };
       };
       linux_5_0_rt = callPackage ../pkgs/os-specific/linux/kernel/linux-5.0-rt.nix {
         kernelPatches = [ kernelPatches.bridge_stp_helper
